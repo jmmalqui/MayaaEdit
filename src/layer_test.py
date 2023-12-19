@@ -108,7 +108,7 @@ class ListTest:
         self.surface.blit(self.title, [5, 5])
         self.accum = self.height
         for t in self.text_surfaces:
-            self.surface.fill([40, 40, 40], [0, self.accum, self.width, t.get_height()])
+            self.surface.fill([40, 40, 30], [0, self.accum, self.width, t.get_height()])
             self.surface.blit(t, [0, self.accum])
             self.accum += t.get_height()
         self.animation = mayaa.animation.Animation()
