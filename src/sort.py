@@ -146,8 +146,8 @@ class Text:
 
     def render(self):
         rectsize = [
-            self.rendered_text.get_width() + 5 * 3,
-            self.rendered_text.get_height() + 5 * 3,
+            self.rendered_text.get_width() + 5 * 4,
+            self.rendered_text.get_height() + 5 * 4,
         ]
         mayaa.draw.rect(
             self.screen.surface, [40, 40, 40], [*self.position, *rectsize], 0, 4
