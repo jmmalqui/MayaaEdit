@@ -28,6 +28,7 @@ class Core:
         )
 
         pg.display.set_caption(win_name)
+        pg.key.set_repeat(500, 50)
 
     def remap(self, event, key_succesion: list, data: None):
         self.key_mapper.remap(event, key_succesion, data)
@@ -50,8 +51,36 @@ class Core:
                     self.event_system.emit(GUIEvent.LEFTMOUSEDOWN, event)
             if event.type == pg.KEYDOWN:
                 self.key_mapper.add_key(event.key)
-            if event.type == pg.KEYUP:
-                self.key_mapper.clear_buffer()
+
+            if event.type == pg.TEXTINPUT:
+                self.event_system.emit(GUIEvent.TEXTINPUT, event.text)
+            if event.type == pg.KEYDOWN:
+                if event.key == 8:
+                    self.event_system.emit(GUIEvent.TEXTERASE, None)
+                if event.key == pg.K_LEFT:
+                    self.event_system.emit(GUIEvent.TEXTCURSORLEFT, None)
+                    self.event_system.emit(GUIEvent.LEFTKEY, None)
+                if event.key == pg.K_UP:
+                    self.event_system.emit(GUIEvent.LINEUP, None)
+                if event.key == pg.K_DOWN:
+                    self.event_system.emit(GUIEvent.LINEDOWN, None)
+                if event.key == pg.K_RIGHT:
+                    self.event_system.emit(GUIEvent.TEXTCURSORRIGHT, None)
+                    self.event_system.emit(GUIEvent.RIGHTKEY, None)
+                if event.key == pg.K_RETURN:
+                    self.event_system.emit(GUIEvent.RETURN, None)
+                if event.mod == 64 and event.key == pg.K_LEFT:
+                    self.event_system.emit(GUIEvent.MOVEBYWORDLEFT, None)
+                if event.mod == 64 and event.key == pg.K_RIGHT:
+                    self.event_system.emit(GUIEvent.MOVEBYWORDRIGHT, None)
+                if event.mod == 64 and event.key == pg.K_MINUS:
+                    self.event_system.emit(GUIEvent.RESIZEDOWN, None)
+                if event.mod == 66 and event.key == 59:
+                    self.event_system.emit(GUIEvent.RESIZEUP, None)
+            if event.type == pg.DROPFILE:
+                self.event_system.emit(GUIEvent.DROPFILE, event)
+            if event.type == pg.MOUSEWHEEL:
+                self.event_system.emit(GUIEvent.WHEEL, event)
 
     def update(self):
         ...

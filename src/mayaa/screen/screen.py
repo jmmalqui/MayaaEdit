@@ -17,6 +17,9 @@ class Screen:
         self.screen_manager.add_screen(self)
 
     def go_to(self, screen_id):
+        self.screen_manager.last_screen_id = (
+            self.screen_manager.current_screen.screen_id
+        )
         self.screen_manager.go_to(screen_id)
 
     def subscribe(self, event_name, callback):
@@ -55,6 +58,7 @@ class ScreenManager:
         self.screen_dict = {}
         self.current_screen: Screen = None
         self.key_mapper = self.core.key_mapper
+        self.last_screen_id = None
 
     def get_events(self):
         return self.core.pygame_event_system.get_events()
